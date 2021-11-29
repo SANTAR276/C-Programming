@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main()
+{
+    int numbers[] = {34, 45, 56, 67, 78};
+    int which_num;
+    printf("which number do you want to print?\n");
+    scanf("%d", &which_num);
+    printf("the %d th number you chose is %d", which_num+1, numbers[which_num]);
+    
+	return 0;
+}
