@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main()
+{
+    
+    int num = 22;
+    double decimal = 65.234;
+    char alphabet = 'A';
+    char sentence[] = "Hello my name is Joonho";
+    
+    printf("%d, %f, %c, %s", num, decimal, alphabet, sentence);
+    
+	return 0;
+}
