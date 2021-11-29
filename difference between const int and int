@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main() /* this example doesn't work because we have set num to a constant integer*/
+{
+    const int num = 5;
+    printf("%d\n", num);
+    num = 8;
+    printf("%d\n", num);
+    
+	return 0;
+}
+
+
+int main() /* however in this exaple the code works because num isn't set to a constant integer
+                also, the num changes from 5 to 8 in the middle of the code because this variable can be modified*/
+{
+    int num = 5;
+    printf("%d\n", num);
+    num = 8;
+    printf("%d\n", num);
+    
+	return 0;    
+}
