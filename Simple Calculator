@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main()
+{
+    double num1;
+    double num2;
+    char op;
+    double ans;
+    
+    printf("Enter a number: \n");
+    scanf("%lf", &num1);
+    printf("Enter what you want to do with the two numbers: \n");
+    scanf(" %c", &op);
+    printf("Enter another number: \n");
+    scanf("%lf", &num2);
+
+    
+    if (op == '+'){
+        ans = num1 + num2;
+    }
+    else if (op == '-'){
+        ans = num1 - num2;
+    }
+    else if (op == '*'){
+        ans = num1 * num2;
+    }
+    else if (op == '/'){
+        ans = num1 / num2;
+    }
+    else{
+        printf("Invalid calculation");
+    }
+    printf("The answer is %f", ans);
+    
+	return 0;
+}
