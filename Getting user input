@@ -20,7 +20,7 @@ int main()
     printf("Your gpa is %f.\n", gpa);
     
     printf("Enter your favorite alphabet: \n");
-    scanf("%c", &alphabet);
+    scanf(" %c", &alphabet);
     printf("Your favorite alphabet is %c.\n", alphabet);
     
     printf("Enter your name: \n");
