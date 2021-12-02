@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct student
+{
+    char name[99];
+    int age;
+    int height;
+    int weight;
+    
+};
+
+int main()
+{
+    struct student student1;
+    strcpy(student1.name, "Joonho Lee");
+    student1.age = 21;
+    student1.height = 179;
+    student1.weight = 77;
+    
+    printf("%s is %d years old, is %d centimeters tall, and weighs %d kilos.\n", student1.name, student1.age, student1.height, student1.weight);
+    
+
+    struct student you;
+    printf("Enter your age: \n");
+    scanf("%d", &you.age);
+    printf("Enter your height: \n");
+    scanf("%d", &you.height);   
+    printf("Enter your weight: \n");
+    scanf("%d", &you.weight);
+    
+    printf("You are %d years old, are %d centimeters tall, and weigh %d kilos.", you.age, you.height, you.weight);    
+    
+	return 0;
+}
