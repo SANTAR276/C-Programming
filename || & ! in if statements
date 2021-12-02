@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    if(3 > 2 || 2 > 5) /* || is an or statement where only one of the statements in the parenthesis need to be true to continue*/
+    {
+        printf("True");
+    }
+    else
+    {
+        printf("False");
+    }
+
+
+    if(3 == 2) /* == means equal to*/
+    {
+        printf("True");
+    }
+    else
+    {
+        printf("False");
+    }
+
+
+    if(3 != 2) /* ! means not*/
+    {
+        printf("True");
+    }
+    else
+    {
+        printf("False");
+    }
+
+
+    if(!(3 > 2)) /* ! can be used negate a whole statment*/
+    {
+        printf("True");
+    }
+    else
+    {
+        printf("False");
+    }
+    
+    
+	return 0;
+}
