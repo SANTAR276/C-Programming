@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main()
+{
+    
+    int age = 22;
+    double gpa = 4.5;
+    char grade = 'A';
+    
+    printf(" age: %p \n gpa: %p \n grade: %p\n", &age, &gpa, &grade);
+    
+	return 0;
+}
