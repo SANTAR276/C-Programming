@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main()
+{
+    int secret = 5;
+    int guess;
+    int limit = 5;
+    int count = 0;
+    int out = 0;
+    
+    while(guess != secret && out == 0)
+    {
+        if(count < limit)
+        {
+           printf("Enter your guess: \n");
+           scanf("%d", &guess);
+           count = count +1;
+        }
+        else
+        {
+            out = 1;
+        }
+    }
+    if(out ==1)
+    {
+        printf("You have run out of guesses");
+    }
+    else
+    {
+        printf("You have guessed correctly!");
+    }
+    
+	return 0;
+}
