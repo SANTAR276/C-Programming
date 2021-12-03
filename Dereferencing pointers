@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main()
+{
+    
+    int age = 22;
+    int *pAge = &age;
+    double gpa = 4.5;
+    double *pGpa = &gpa;
+    char grade = 'A';
+    char *pGrade = &grade;
+    
+    
+    printf(" age: %d\n gpa: %f\n grade: %c\n", *pAge, *pGpa, *pGrade);          /* This prints out the actual value of the variables*/
+    printf(" age: %d\n gpa: %f\n grade: %c\n", &age, &gpa, &grade);             /* This prints out the memory address of the variables*/
+    printf(" age: %d\n gpa: %f\n grade: %c\n", *&age, *&gpa, *&grade);          /* This prints out the actual value of the variables*/
+    printf(" age: %d\n gpa: %f\n grade: %c\n", &*&age, &*&gpa, &*&grade);       /* This prints out the memory address of the variables*/
+    printf(" age: %d\n gpa: %f\n grade: %c\n", *&*&age, *&*&gpa, *&*&grade);    /* This prints out the actual value of the variables*/
+    
+	return 0;
+}
