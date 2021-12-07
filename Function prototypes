@@ -3,13 +3,16 @@
 void hello(char[], int); // This is a function prototype
 /*
     
-    A function prototype is declared without a body, and comes before the main()
+    A function prototype is declared without a body, and comes before the main function
     Makes sure that all of the arguments are met for that function
 
     This is useful because
     1. A compiler might not check for parameter matching before running a code
     2. Missing arguments will result in random unwanted values to be inputted
     3. It is easy to check for errors if there are arguments missing
+    4. It helps a lot with debugging
+    5. Commonly used in header files
+    6. It is easier to navigate a program with the main function at the top
 
 */
 
