@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main()
+{
+    double num1;
+    double num2;
+    char op;
+    double ans;
+    
+    printf("Enter a number: ");
+    scanf("%lf", &num1);
+    printf("Enter another number: ");
+    scanf("%lf", &num2);
+    printf("Enter what you want to do with the two numbers: ");
+    scanf(" %c", &op);
+
+    switch(op){
+        case '+' :
+            ans = num1 + num2;
+            printf("The answer is %f", ans);
+            break;
+        case '-' :
+            ans = num1 - num2;
+            printf("The answer is %f", ans);
+            break;
+        case '*' :
+            ans = num1 * num2;
+            printf("The answer is %f", ans);
+            break;
+        case '/' :
+            ans = num1 / num2;
+            printf("The answer is %f", ans);
+            break;
+        default :
+            printf("%c is not a valid operation", op);
+    }
+    
+	return 0;
+}
