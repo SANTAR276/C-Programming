@@ -1,0 +1,28 @@
+#include<stdio.h>
+
+int main(){
+
+    double temp;
+    char type;
+
+    printf("Enter the temperature: ");
+    scanf("%lf", &temp);
+
+    printf("Is your temperature C or F?: ");
+    scanf(" %c", &type);
+
+    switch(type){
+        case 'C':
+            temp = (temp * 9 / 5) + 32;
+            printf("Your temperature in Fahrenheit is : %.1fF", temp);
+            break;
+        case 'F':
+            temp = (temp - 32) * 5 / 9;
+            printf("Your temperature in Celsius is : %.1fC", temp);
+            break;
+        default:
+            printf("You have entered an invalid temperature type");
+    }
+
+    return 0;
+}
