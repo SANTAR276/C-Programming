@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int find_max(int x, int y)
+{
+    return x > y ? x : y; /* (state a condition) ? (the value if condition is true) : (the value if condition is false)*/
+}
+
+int main()
+{
+    int max;
+    max = find_max(3, 4);
+
+    printf("%d", max);
+
+    return 0;
+}
