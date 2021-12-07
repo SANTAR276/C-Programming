@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+
+    char string1[] = "Joonho";
+    char string2[] = "Lee";
+                                            // what the function does                                           //outcome
+    //strlwr(string1);              //converts the whole string1 to lower case                                  //joonho
+    //strupr(string1);              //converts the whole string1 to upper case                                  //JOONHO
+    //strcat(string1, string2);     //appends string2 behind string1                                            //JoonhoLee
+    //strncat(string1, string2, 2); //appends 2 letters behind string1                                          //JoonhoLe
+    //strcpy(string1, string2);     //replaces the contents of string1 with the contents of string2             //Lee
+    //strncpy(string1, string2, 2); //replaces first 2 letters of string1 with the first 2 letters of string2   //Leonho
+
+    //strset(string1, '?');         //converts the whole string1 with ?                                         //??????
+    //strnset(string1, 'x' 3);      //converts the first 3 letters of string1 with x                            //xxxnho
+    //strrev(string1);              //reverses string1                                                          //ohnooJ
+
+    //int result = strlen(string1);                 //measures the length of string1                            //6
+    //int result = strcmp(string1, string2);        //compares string1 and string2, if they are the same the value will be 0, if they are different the value will be -1
+    //int result = strncmp(string1, string2, 2);    //compares the first 2 letter of string1 and string2, if they are the same the value will be 0, if they are different the value will be -1
+    //int result = strcmpi(string1, string2);       //same as strcmp but doesnt check upper or lower case
+    //int result = strnicmp(string1, string2, 2);   //same as strncmp but doesnt check upper or lower case
+
+    printf("%s", string1);
+    printf("%d", result);
+
+
+}
