@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+int main()
+{
+    float temp = 37;
+    bool snow = false;
+    bool sunny = true;
+
+    if(temp > 0 && temp < 30 || snow || sunny){
+        printf("The weather outside is good!");
+    }
+    else{
+        printf("The weather outside is bad!");
+    }
+	return 0;
+}
