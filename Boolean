@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+int main()
+{
+    float temp = 25;
+    bool sunny = true;
+
+    if(temp > 0 && temp < 40 && sunny == 1){
+        printf("The weather outside is good!");
+    }
+    else{
+        printf("The weather outside is bad!");
+    }
+	return 0;
+}
