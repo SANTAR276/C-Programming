@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main(){
+
+    int rows;
+    int columns;
+    char symbol;
+
+    printf("How many rows do you want?: ");
+    scanf("%d", &rows);
+
+    printf("How many columns do you want?: ");
+    scanf("%d", &columns);
+    
+    printf("What is the symbol you want?: ");
+    scanf(" %c", &symbol);
+    
+    for(int i = 1; i <= rows; i++){
+        for (int j = 1; j <=columns; j++){
+            printf("%c", symbol);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
