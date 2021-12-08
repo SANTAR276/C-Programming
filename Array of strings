@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+
+    char foods[][10] = {"Sushi", "Steak", "Pizza", "Burger"};
+
+    strcpy(foods[0], "Lasagna");
+
+    for(int i = 0; i < sizeof(foods)/sizeof(foods[0]); i++){
+        printf("%s\n", foods[i]);
+    }
+
+    return 0;
+}
