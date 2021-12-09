@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+typedef struct{
+    char name[15];
+    double gpa;
+} studs;
+
+int main(){
+
+    studs student1 = {"Spongebob", 3.0};
+    studs student2 = {"Patrick", 1.5};
+    studs student3 = {"Sandy", 3.5};
+    studs student4 = {"Squidward", 4.0};
+
+    studs student[] = {student1, student2, student3, student4};
+    int size = sizeof(student)/ sizeof(student[0]);
+
+    for(int i = 0; i < size; i++){
+        printf("Student %d: %-15s\t", i + 1, student[i].name);
+        printf("GPA: %.2f\n", student[i].gpa);
+    }
+
+    return 0;
+}
