@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main(){
+
+    srand(time(0));
+
+    int number1 = rand() % 6;           // the % gives you the remainder when divided by the number behind, making the possible random numbers 0 ~ 5
+    return 0;
+}
