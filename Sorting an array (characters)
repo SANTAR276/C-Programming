@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+void sort(char alph[], int size);
+void print(char alph[], int size);
+
+int main(){
+    char alphabets[] = {'H', 'G', 'C', 'B', 'D', 'F', 'A', 'E'};
+    int size = sizeof(alphabets)/sizeof(alphabets[0]);
+
+    sort(alphabets, size);
+    print(alphabets, size);
+
+    return 0;
+}
+
+void sort(char alph[], int size){
+    for(int i = 0; i < size - 1; i++){
+        for(int j = 0; j < size - 1; j++){
+            if(alph[j] < alph[j+1]){
+                char temp = alph[j];
+                alph[j] = alph[j+1];
+                alph[j+1] = temp;
+            }
+        }
+    }
+}
+
+void print(char alph[], int size){
+    for(int i = 0; i < size; i++){
+        printf("%c ", alph[i]);
+    }
+}
