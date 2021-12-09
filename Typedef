@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+typedef char user [25];
+
+typedef struct{
+    int id;
+    char password[25];
+    char nickname[25]; 
+} ACC;
+
+int main(){
+
+    user user1 = "Joonho";
+    printf("Hi %s\n\n", user1);
+
+    ACC User1 = {123456789, "password123", "nickname123"};
+    ACC User2 = {987654321, "password321", "nickname321"};
+
+    printf("id: %d\npassword: %s\nnickname: %s\n\n", User1.id, User1.password, User1.nickname);
+    printf("id: %d\npassword: %s\nnickname: %s\n", User2.id, User2.password, User2.nickname);
+
+    return 0;
+}
