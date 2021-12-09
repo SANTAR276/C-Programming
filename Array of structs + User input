@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct{
+    char name[15];
+    double gpa;
+} studs;
+
+int main(){
+
+    char my_name[15];
+    double  my_gpa;
+
+    printf("Enter your name: ");
+    fgets(my_name, 15, stdin);
+    my_name[strlen(my_name) - 1] = '\0';
+    printf("Enter your GPA: ");
+    scanf("%lf", &my_gpa);
+
+    studs student1 = {"Spongebob", 3.0};
+    studs student2 = {"Patrick", 1.5};
+    studs student3 = {"Sandy", 3.5};
+    studs student4 = {"Squidward", 4.0};
+    studs student5;
+    strcpy(student5.name, my_name);
+    student5.gpa = my_gpa;
+
+    studs student[] = {student1, student2, student3, student4, student5};
+    int size = sizeof(student)/ sizeof(student[0]);
+
+    for(int i = 0; i < size; i++){
+        printf("Student %d: %-15s\t", i + 1, student[i].name);
+        printf("GPA: %.2f\n", student[i].gpa);
+    }
+
+    return 0;
+}
