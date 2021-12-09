@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+enum day{Mon = 1, Tue = 2, Wed = 3, Thu = 4, Fri = 5, Sat = 6, Sun = 7};
+
+int main(){
+
+    enum day today = Sat;
+
+    if(today == 6 || today == 7){ // enums are treated as integers, not strings
+        printf("\n No school today!");
+    }
+    else{
+        printf("\n I have to go to school today ;(");
+    }
+    return 0;
+}
