@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+int main(){
+
+    FILE *file = fopen("C:\\Program Files\\test.txt", "w");
+
+    fprintf(file, "Spongebob Squarepants");
+
+    fclose(file);
+
+    return 0;
+}
