@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+int main(){
+
+    if(remove("text.txt") == 0){
+        printf("The file was successfully deleted!");
+    }
+    else{
+        printf("The file was not deleted!");
+    }
+    return 0;
+}
