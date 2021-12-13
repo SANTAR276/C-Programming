@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+
+int main(){
+
+    // & = AND
+    // | = OR
+    // ^ = XOR
+    // << = left shift
+    // >> = right shift
+
+    int x = 6;  // 00000110
+    int y = 12; // 00001100
+    int z = 0;  // 00000000
+
+    z = x & y;  // 00000100             both bits have to be 1 for the corresponding bit to be 1
+    printf("AND = %d\n", z);
+
+    z = x | y;  // 00001110             at least one bit has to be 1 for the corresponding bit to be 1
+    printf("OR = %d\n", z);
+
+    z = x ^ y;  // 00001010             only one of the bits have to be 1 for the corresponding bit to be 1
+    printf("XOR = %d\n", z);
+
+    z = x << 1; // 00001100             shifts all the bits to the left n number of times (mupltiplies the value by 2n)
+    printf("shift left = %d\n", z);
+
+    z = y >> 2; // 00000011             shifts all the bits to the right n number of times (divides the value by 2n)
+    printf("shift right = %d\n", z);
+
+    return 0;
+}
