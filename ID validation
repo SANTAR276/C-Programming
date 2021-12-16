@@ -1,0 +1,63 @@
+/*
+
+    In this project, I tried to make a program that checks the following conditions when creating an ID
+
+        1. The username is between 4 and 25 characters.
+        2. It must start with a letter.
+        3. It can only contain letters, numbers, and the underscore character.
+        4. It cannot end with an underscore character.
+
+*/
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void IDCheck(char[]);
+int IDCheckChars(char[]);
+
+int main(){
+
+    char ID[25];
+
+    printf("Enter your ID: ");
+    scanf("%s", ID);
+    
+    IDCheck(ID);
+
+    return 0;
+}
+
+void IDCheck(char ID[]){
+    if(strlen(ID) < 4 || strlen(ID) > 25){
+        printf("Invalid username!");
+    }
+
+    else if(isalpha(ID[0]) == 0){
+        printf("Invalid username!");
+    }
+
+    else if(ID[strlen(ID) - 1] == '_'){
+        printf("Invalid username!");
+    }
+
+    else if(IDCheckChars(ID) != 0){
+        printf("Invalid username!");
+    }
+    
+    else{
+        printf("Username created!");
+    }
+}
+
+int IDCheckChars(char ID[]){
+    int check = 0;
+    for(int i = 0; i < strlen(ID); i++){
+        if(ID[i] == '_' || isalpha(ID[i]) || isdigit(ID[i])){
+            continue;
+        }
+        else{
+            check++;
+        }
+    }
+    return check;
+}
