@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <time.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+int main(){
+
+    char moves[][10] = {"rock", "paper", "scissors"};
+    char yourMove[10];
+    char compMove[10];
+    int n;
+    char response;
+
+    do{
+        printf("Rock, paper, scissors, shoot!");
+        scanf("%s", yourMove);
+        strlwr(yourMove);
+
+        srand(time(0));
+        n = rand() % 3;
+        strcpy(compMove, moves[n]);
+
+        printf("Your move: %s\ncomputer's move: %s\n", yourMove, compMove);
+        
+
+        if(strcmp(yourMove, compMove) == 0){
+            printf("It's a tie!");
+        }
+        else if(strcmp(yourMove, "rock") == 0 && strcmp(compMove, "scissors") == 0){
+            printf("You win!");
+        }
+        else if(strcmp(yourMove, "rock") == 0 && strcmp(compMove, "paper") == 0){
+            printf("You lose!");
+        }
+        else if(strcmp(yourMove, "paper") == 0 && strcmp(compMove, "rock") == 0){
+            printf("You Win!");
+        }
+        else if(strcmp(yourMove, "paper") == 0 && strcmp(compMove, "scissors") == 0){
+            printf("You lose!");
+        }
+        else if(strcmp(yourMove, "scissors") == 0 && strcmp(compMove, "rock") == 0){
+            printf("You lose!");
+        }
+        else if(strcmp(yourMove, "scissors") == 0 && strcmp(compMove, "paper") == 0){
+            printf("You win!");
+        }
+        else{
+            printf("Invalid operation!");
+        }
+
+        printf("\nWould you like to play again?: (Y/N)");
+        scanf(" %c", &response);
+        response = toupper(response);
+    } while(response == 'Y');
+
+    printf("Thank you for playing!");
+
+    return 0;
+}
