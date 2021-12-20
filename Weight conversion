@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+
+    double inputNum;
+
+    char inputType[10];
+    char outputType[10];
+
+    printf("Enter a weight: ");
+    scanf("%lf", &inputNum);
+
+    printf("Enter what measurement type it is: (kg, oz, or lb)");
+    scanf("%s", inputType);
+    strlwr(inputType);
+
+    printf("What measurement type do you want to convert to: (kg, oz, or lb)");
+    scanf("%s", outputType);
+
+    if(strcmp(inputType, "kg") == 0){
+        if(strcmp(outputType, "oz") == 0){
+            printf("%.5fkg in ounces is %.5foz", inputNum, inputNum * 35.274);
+        }
+        else if(strcmp(outputType, "lb") == 0){
+            printf("%.5fkg in pounds is %.5flb", inputNum, inputNum * 2.20462);
+        }
+        else{
+            printf("Invalid operation!");
+        }
+    }
+    else if(strcmp(inputType, "oz") == 0){
+        if(strcmp(outputType, "kg") == 0){
+            printf("%.5foz in kilograms is %.5fkg", inputNum, inputNum * 0.02835);
+        }
+        else if(strcmp(outputType, "lb") == 0){
+            printf("%.5foz in pounds is %.5flb", inputNum, inputNum * 0.0625);
+        }
+        else{
+            printf("Invalid operation!");
+        }
+    }
+    else if(strcmp(inputType, "lb") == 0){
+        if(strcmp(outputType, "kg") == 0){
+            printf("%.5flb in kilograms is %.5fkg", inputNum, inputNum * 0.45359);
+        }
+        else if(strcmp(outputType, "oz") == 0){
+            printf("%.5flb in ounces is %.5foz", inputNum, inputNum * 16);
+        }
+        else{
+            printf("Invalid operation!");
+        }
+    }
+    else{
+        printf("Invalid operation!");
+    }
+
+    return 0;
+}
