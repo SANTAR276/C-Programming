@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <ctype.h>
+
+int main(){
+
+    char response;
+
+    do{
+        char words[][15] = {
+            "apple",
+            "green",
+            "window",
+            "pizza",
+            "hangman",
+            "game"
+        };
+        
+        srand(time(0));
+        int n = rand() % 6;
+
+        int lives = 5;
+        int numCorrect = 0;
+        int oldCorrect = 0;
+        
+        int wordLength = strlen(words[n]);
+
+        int letterGuessed[10] = { 0,0,0,0,0,0,0,0,0,0 };
+        
+        int quit = 0;
+
+        char guess[15];
+        char letterEntered;
+
+        while(numCorrect < wordLength){
+            printf("\nHangman word: ");
+
+            for(int i = 0; i < wordLength; i++){
+                if(letterGuessed[i] == 1){
+                    printf("%c", words[n][i]);
+                }
+                else{
+                    printf("_ ");
+                }
+            }
+
+            printf("\n");
+
+            printf("Number of characters correct so far: %d\n", numCorrect);
+            printf("Enter your guess: ");
+            fgets(guess, 15, stdin);
+
+            if(strncmp(guess, "quit", 4) == 0){
+                quit = 1;
+                break;
+            }
+
+            letterEntered = guess[0];
+
+            printf("Letter entered: %c\n", letterEntered);
+
+            oldCorrect = numCorrect;
+
+            for(int i = 0; i < wordLength; i++){
+                if(letterGuessed[i] == 1){
+                    continue;
+                }
+
+                if(letterEntered == words[n][i]){
+                    letterGuessed[i] = 1;
+                    numCorrect++;
+                }
+            }
+
+            if(oldCorrect == numCorrect){
+                lives--;
+                printf("Wrong guess, you lost a life! You now have %d chances remaining\n", lives);
+                if(lives == 0){
+                    break;
+                }
+            }
+            else{
+                printf("Your guess was correct!\n");
+            }
+        }
+
+
+        if(quit == 1){
+            printf("\nThe user has left the game!\n");
+        }
+        else if(lives == 0){
+            printf("\nYou have lost! The word was %s!\n", words[n]);
+        }
+        else{
+            printf("\nCongrats! You won! The word was %s!\n", words[n]);
+        }
+
+        printf("\nWould you like to play again??: (Y/N)");
+        scanf(" %c", &response);
+        response = toupper(response);
+
+    } while(response == 'Y');
+
+
+    return 0;
+}
