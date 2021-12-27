@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main(){
+
+    int num1;
+    printf("Choose a number: (1 or 2) ");
+    scanf("%d", &num1);
+
+    if(num1 ==1){
+        goto ONE;
+    }
+    else if(num1 == 2){
+        goto TWO;
+    }
+    else{
+        goto EXIT;
+    }
+
+    ONE:
+        printf("You chose number 1");
+        goto EXIT;
+
+    TWO:
+        printf("You chose number 2");
+        goto EXIT;
+
+    EXIT:
+        return 0;
+}
