@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+typedef struct{
+    char name[20];
+    int dmg;
+    int spd;
+} weapon;
+
+struct potion{
+    char name[20];
+    int HP;
+    int MP;
+};
+
+int main(){
+
+    weapon LongSword = {"Long Sword", 8, 1};
+    weapon dagger = {"Dagger", 4, 2};
+    struct potion potion_red = {"Elixir", 40, 20};
+
+    printf("\nWeapon name = %s\nDamage = %d\nSpeed = %d\n", LongSword.name, LongSword.dmg, LongSword.spd);
+    printf("\nPotion name = %s\nHP gain = %d\nMP gain = %d\n", potion_red.name, potion_red.HP, potion_red.MP);
+    return 0;
+}
