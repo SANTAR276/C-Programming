@@ -9,7 +9,7 @@ int main(){
 
     while(ptr != NULL){
         printf("%s\n", ptr);
-        ptr = strtok(NULL, " ");
+        ptr = strtok(NULL, " ");        // The reason why we need NULL to be here is because, after the first strtok function, everything after the "The" in "The Little Prince" is considered to be NULL
     }
     
     return 0;
