@@ -3,10 +3,10 @@
 
 int main(){
 
-    char s1[30] = "The little Prince";
+    char s1[40] = "Harry Potter and the Goblet of Fire";
     char *sArr[10] = {NULL, };
 
-    int i =0;
+    int i = 0;
 
     char *ptr = strtok(s1, " ");
 
