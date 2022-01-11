@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+
+    char s1[30] = "2022-01-11T18:26:32";
+
+    char *ptr = strtok(s1, "-T:");          // Putting multiple characters to choose to cut will allow you to cut a string every time one of those characters appear
+
+    while(ptr != NULL){
+        printf("%s\n", ptr);
+        ptr = strtok(NULL, "-T:");
+    }
+    
+    return 0;
+}
