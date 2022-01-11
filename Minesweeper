@@ -5,7 +5,6 @@
 int main(){
 
     int row, col;
-    int count = 0;
 
     printf("Enter the # of rows: ");
     scanf("%d", &row);
