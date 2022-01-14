@@ -3,21 +3,25 @@
 
 int main(){
 
-    char text[10001];
+    char text[1001];
+    char word[10];
     int count = 0;
 
     printf("Enter your text: \n");
     scanf("%[^\n]s", text);
 
+    printf("Enter the word you want to find: ");
+    scanf("%s", word);
+
     char *ptr = strtok(text, " .,");
 
     while(ptr != NULL){
-        if(ptr != NULL && strcmp(ptr, "the") == 0){
+        if(ptr != NULL && strcmp(ptr, word) == 0){
             count++;
         }
         ptr = strtok(NULL, " .,");
     }
 
-    printf("the number of 'the's in your text was: %d", count);
+    printf("the number of '%s's in your text was: %d", word, count);
     return 0;
 }
