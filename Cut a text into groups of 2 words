@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+
+
+int main(){
+
+    char text[100] = "You know, I'm something of a scientist myself";
+    char *cuts[30] = { NULL, };
+    int count = 0;
+
+    char *ptr = strtok(text, " ");
+
+    while(ptr != NULL){
+        cuts[count] = ptr;
+        count++;
+
+        ptr = strtok(NULL, " ");
+    }
+
+    for(int i = 0; i < count - 1; i++){
+        printf("%s %s\n", cuts[i], cuts[i + 1]);
+    }
+
+    return 0;
+}
