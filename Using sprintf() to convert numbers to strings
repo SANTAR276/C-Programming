@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main(){
+
+    char s1[10];
+    int num1 = 142857;
+
+    sprintf(s1, "%d", num1);
+    printf("%s\n", s1);
+
+    char s2[10];
+    int num2 = 283;
+
+    sprintf(s2, "0x%x", num2);
+    printf("%s\n", s2);
+
+    char s3[10];
+    float num3 = 3.1415926;
+
+    sprintf(s3, "%f", num3);
+    printf("%s\n", s3);
+
+    char s4[10];
+    float num4 = 3.1415926;
+
+    sprintf(s4, "%e", num4);
+    printf("%s\n", s4);
+
+    return 0;
+}
