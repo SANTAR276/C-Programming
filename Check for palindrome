@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+int main(){
+
+    char word[20];
+    int length;
+    bool Palindrome = true;
+
+    printf("Enter your word: ");
+    scanf("%s", word);
+
+    length = strlen(word);
+
+    for(int i = 0; i < length / 2; i++){
+        if(word[i] != word[length - 1 - i]){
+            Palindrome = false;
+            break;
+        }
+    }
+
+    if(Palindrome == 1){
+        printf("Your word is the same backwards and forwards");
+    }
+    else{
+        printf("Your word is not the same backwards and forwards");
+    }
+    
+    return 0;
+}
