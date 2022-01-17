@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+
+
+int main(){
+
+    char text[30];
+    int length;
+    int n;
+
+    printf("Enter your text: ");
+    scanf("%s", text);
+
+    printf("How many letters do you want to cut it by");
+    scanf("%d", &n);
+
+    length = strlen(text);
+
+    if(length < n){
+        printf("Invalid move");
+    }
+    else{
+        for(int i = 0; i < length - (n - 1); i++){
+            for(int j = 0; j < n; j++){
+                printf("%c", text[i + j]);
+            }
+            printf("\n");
+        }
+    }
+
+    return 0;
+}
