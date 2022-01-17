@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+struct Data{
+    char c1;
+    int *pNum;
+};
+
+int main(){
+
+    int num1 = 13;
+    struct Data d1;
+    struct Data *d2 = malloc(sizeof(struct Data));
+
+    d1.pNum = &num1;
+    d2->pNum = &num1;
+
+    printf("%d\n%d\n", *d1.pNum, *d2->pNum);
+
+    d2->c1 = 'A';
+
+    printf("%c\n%d", (*d2).c1, *(*d2).pNum);
+
+    free(d2);
+
+    return 0;
+}
