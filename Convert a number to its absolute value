@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <math.h>
+
+int main(){
+
+    int a = -30;
+    a = abs(a);
+    printf("%d\n", a);
+
+    double b = -20;
+    b = fabs(b);
+    printf("%f\n", b);
+
+    float c = -10;
+    c = fabsf(c);
+    printf("%f\n", c);
+    
+    return 0;
+}
