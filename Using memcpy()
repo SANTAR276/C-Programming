@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct _Point2D{
+    int x;
+    int y;
+} Point2D;
+
+int main(){
+
+    Point2D p1;
+    Point2D p2;
+    
+    p1.x = 10;
+    p1.y = 20;
+
+    memcpy(&p2, &p1, sizeof(Point2D));
+
+    printf("%d %d", p2.x, p2.y);
+
+    return 0;
+}
