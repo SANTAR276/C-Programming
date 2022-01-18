@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _Point2D{
+    int x;
+    int y;
+} Point2D;
+
+int main(){
+
+    Point2D *p[3];
+
+    for(int i = 0; i < sizeof(p) / sizeof(Point2D *); i++){
+        p[i] = malloc(sizeof(Point2D));
+    }
+
+    p[0]->x = 10;
+    p[0]->y = 20;
+    p[1]->x = 30;
+    p[1]->y = 40;
+    p[2]->x = 50;
+    p[2]->y = 60;
+
+    for(int i = 0; i < 3; i++){
+        printf("%d %d\n", p[i]->x, p[i]->y);
+    }
+
+    for(int i = 0; i < sizeof(p) / sizeof(Point2D *); i++){
+        free(p[i]);
+    }
+
+    return 0;
+}
