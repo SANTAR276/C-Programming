@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <math.h>
+
+typedef struct _Point2D {
+    int x;
+    int y;
+} Point2D;
+
+
+int main(){
+
+    Point2D p1;
+    Point2D p2;
+    float distance;
+
+    printf("Enter your first X and Y coordinates: ");
+    scanf("%d %d", &p1.x, &p1.y);
+
+    printf("Enter your second X and Y coordinates: ");
+    scanf("%d %d", &p2.x, &p2.y);
+
+    distance = sqrt((p2.x-p1.x)*(p2.x-p1.x) + (p2.y-p1.y)*(p2.y-p1.y));
+
+    printf("The distance between the two coordinates is: %.2f", distance);
+
+    return 0;
+}
