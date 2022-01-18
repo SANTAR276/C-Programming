@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _Person{
+    char name[30];
+    int age;
+} Person;
+
+int main(){
+
+    Person *p[5];
+
+    for(int i = 0; i < sizeof(p) / sizeof(Person *); i++){
+        p[i] = malloc(sizeof(Person));
+    }
+
+    int oldest = 0;
+
+    printf("Enter the names and age of 5 people: ");
+
+    scanf("%s %d %s %d %s %d %s %d %s %d", p[0]->name, &p[0]->age, p[1]->name, &p[1]->age, p[2]->name, &p[2]->age, p[3]->name, &p[3]->age, p[4]->name, &p[4]->age);
+
+    for(int i = 1; i < sizeof(p) / sizeof(Person *); i++){
+        if(p[i]->age > p[oldest]->age){
+            oldest = i;
+            continue;
+        }
+        else{
+            continue;
+        }
+    }
+
+    printf("The oldest person in your list was: %s", p[oldest]->name);
+
+    for(int i = 0; i < sizeof(p) / sizeof(Person *); i++){
+        free(p[i]);
+    }
+
+    return 0;
+}
