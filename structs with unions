@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct _Vector{
+    union{
+        struct{
+            float x;
+            float y;
+            float z;
+        };
+        float v[3];
+    };
+} Vector;
+
+int main(){
+
+    Vector pos;
+
+    for(int i = 0; i < 3; i++){
+        pos.v[i] = 1.0f;
+    }
+
+    printf("%.2f %.2f %.2f", pos.x, pos.y, pos.z);
+
+    return 0;
+}
