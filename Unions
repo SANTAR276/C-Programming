@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <string.h>
+
+union Data{
+    char c1;
+    short num1;
+    int num2;
+};
+
+int main(){
+
+    union Data d1;
+
+    d1.num2 = 0x12345678;           // The memory for this is saved as 78 56 34 12
+
+    printf("0x%x\n", d1.num2);
+    printf("0x%x\n", d1.num1);      // So only 5678 is printed
+    printf("0x%x\n", d1.c1);        // Only 78 is printed
+
+    return 0;
+}
