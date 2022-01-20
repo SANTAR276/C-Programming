@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+typedef struct _Flags{
+    unsigned int a : 1; // sets this variable to 1 bit
+    unsigned int b : 3; // sets this variable to 3 bits
+    unsigned int c : 7; // sets this variable to 7 bits
+} Flags;
+
+int main(){
+
+    Flags f1;
+
+    f1.a = 1;
+    f1.b = 15;
+    f1.c = 255;
+
+    printf("%u\n%u\n%u", f1.a, f1.b, f1.c);
+    
+    return 0;
+}
