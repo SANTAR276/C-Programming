@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct _Phone{
+    int countrycode;
+    unsigned long long number;
+} Phone;
+
+typedef struct _Person{
+    char name[30];
+    int age;
+    Phone *phone;
+} Person;
+
+int main(){
+
+    Person *p1 = malloc(sizeof(Person));
+    p1->phone = malloc(sizeof(Phone));
+
+    (*p1).phone->countrycode = 82;
+    p1->phone->number = 12345678;
+
+    printf("+0%d 010-%llu\n", (*p1).phone->countrycode, p1->phone->number);
+
+    free(p1->phone);
+    free(p1);
+
+    return 0;
+}
