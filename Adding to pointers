@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main(){
+
+    char *cPtr = NULL;
+    short *numPtr1 = NULL;
+    int *numPtr2 = NULL;
+    long long *numPtr3 = NULL;
+                                    // The value printed is equal to the byte size of each variable
+    printf("%p\n", cPtr + 1);       // 0000000000000001
+    printf("%p\n", numPtr1 + 1);    // 0000000000000002
+    printf("%p\n", numPtr2 + 1);    // 0000000000000004
+    printf("%p\n", numPtr3 + 1);    // 0000000000000008
+
+    return 0;
+}
