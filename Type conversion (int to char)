@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+
+    int *pNum = malloc(sizeof(int));
+
+    char *pC;
+
+    *pNum = 0x12345678;
+
+    pC = (char *)pNum;
+
+    printf("0x%x\n", *pC);          // Value printed is 0x78 because a char is 1 byte whereas an int is 4 bytes
+
+    free(pNum);
+
+    return 0;
+}
