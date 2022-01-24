@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+
+    short *numPtr1 = malloc(sizeof(short));
+    int *numPtr2;
+
+    *numPtr1 = 0x1234;
+
+    numPtr2 = (int *)numPtr1;
+
+    printf("0x%x", *numPtr2);               // Prints a value like 0x9e1234 because int is bigger than short so the 9e is brought randomly
+
+    free(numPtr1);
+
+    return 0;
+}
