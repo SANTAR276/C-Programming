@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+
+    int num1 = 10;
+    double num2 = 0.142857;
+    char c1 = 'a';
+    void *ptr;
+
+    ptr = &num1;
+
+    printf("%d\n", *(int *)ptr);
+
+    ptr = &num2;
+
+    printf("%f\n", *(double *)ptr);
+
+    ptr = &c1;
+
+    printf("%c\n", *(char *)ptr);
+
+    return 0;
+}
