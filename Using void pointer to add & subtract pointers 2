@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main(){
+
+    int numarr[5] = {11, 22, 33, 44, 55};
+    void *ptr = &numarr[2];
+    int *pnum = (int *)ptr;
+
+    printf("%d\n", *pnum);
+
+    printf("%d\n", *(pnum + 1));
+    printf("%d\n", *(pnum - 1));
+    
+    printf("%d\n", *++pnum);
+    printf("%d\n", *--pnum);
+
+    printf("%d\n", *pnum++);
+    printf("%d\n", *pnum--);
+
+    return 0;
+}
