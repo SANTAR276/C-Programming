@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+int main(){
+
+    int numarr[5] = {11, 22, 33, 44, 55};
+    int *pNum1;
+    int *pNum2;
+    int *pNum3;
+
+    pNum1 = numarr;
+
+    pNum2 = pNum1 + 1;
+    pNum3 = pNum1 + 2;
+
+    printf("%d\n", *pNum2);             // Value is equal to numarr[1]
+    printf("%d\n", *pNum3);             // Value is equal to numarr[2]
+    printf("%d\n", *(pNum1 + 3));       // Value is equal to numarr[3]
+    printf("%d\n", *(++pNum3));         // Value is equal to numarr[3]
+    printf("%d\n", *(--pNum2));         // Value is equal to numarr[0]
+
+    return 0;
+}
