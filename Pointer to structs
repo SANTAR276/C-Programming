@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+typedef struct{
+    int num1;
+    int num2;
+} Data;
+
+int main(){
+
+    Data d[3] = {{ 10 , 20 }, { 30 , 40 }, { 50 , 60 }};
+    Data *ptr;
+
+    ptr = d;
+
+    for(int i = 0; i < 3; i++){
+        printf("%d %d\n", ptr->num1, ptr->num2);
+        ptr++;
+    }
+    
+    return 0;
+}
