@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+
+union Box{
+    char candy[10];
+    char snack[10];
+    char toy[10];
+};
+
+enum BoxType{
+    Paper = 0,
+    Wood,
+    Plastic
+};
+
+union Box getBox(){
+    union Box b;
+
+    strcpy(b.candy, "Twix bar");
+
+    return b;
+
+}
+
+enum BoxType getBoxType(){
+    return Wood;
+}
+
+int main(){
+
+    union Box box;
+    enum BoxType boxType;
+
+    box = getBox();
+    boxType = getBoxType();
+
+    printf("%s, %d", box.candy, boxType);
+
+    return 0;
+}
