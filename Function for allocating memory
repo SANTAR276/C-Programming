@@ -18,7 +18,8 @@ int main(){
     int *num1 = allocMemory();
     num1[0] = 10;
     num1[1] = 20;
-    printf("%d %d\n", num1[0], num1[1]);
+    num1[2] = 30;
+    printf("%d %d %d\n", num1[0], num1[1], num1[2]);
     free(num1);
 
     float *num2 = allocMemory();
@@ -26,6 +27,11 @@ int main(){
     num2[1] = 12.345678;
     printf("%f %f\n", num2[0], num2[1]);
     free(num2);
+
+    double *num3 = allocMemory();
+    *num3 = 14.2857;
+    printf("%f\n", *num3);
+    free(num3);
 
     return 0;
 }
