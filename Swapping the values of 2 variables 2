@@ -1,0 +1,68 @@
+#include <stdio.h>
+
+
+typedef enum{
+    Type_Char,
+    Type_Int,
+    Type_Float
+} TYPE;
+
+void swapValue(void *ptr1, void *ptr2, TYPE t){
+    switch(t){
+        case Type_Char:
+        {
+            char temp;
+
+            temp = *(char *)ptr1;
+            *(char *)ptr1 = *(char *)ptr2;
+            *(char *)ptr2 = temp;
+            break;
+        }
+        case Type_Int:
+        {
+            int temp;
+
+            temp = *(int *)ptr1;
+            *(int *)ptr1 = *(int *)ptr2;
+            *(int *)ptr2 = temp;
+            break;
+        }
+        case Type_Float:
+        {
+            float temp;
+
+            temp = *(float *)ptr1;
+            *(float *)ptr1 = *(float *)ptr2;
+            *(float *)ptr2 = temp;
+            break;
+        }
+
+    }
+
+}
+
+int main(){
+
+    char c1 = 'A';
+    char c2 = 'Z';
+
+    swapValue(&c1, &c2, Type_Char);
+    printf("%c %c\n", c1, c2);
+
+
+    int num1 = 1;
+    int num2 = 9;
+
+    swapValue(&num1, &num2, Type_Int);
+    printf("%d %d\n", num1, num2);
+
+
+    float num3 = 1.234567;
+    float num4 = 7.654321;
+
+    swapValue(&num3, &num4, Type_Float);
+    printf("%f %f\n", num3, num4);
+
+
+    return 0;
+}
