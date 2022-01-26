@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void allocMemory(void **ptr, int size){
+    *ptr = malloc(size);
+}
+
+int main(){
+
+    long long *numptr;
+
+    allocMemory((void**)&numptr, sizeof(long long));
+
+    *numptr = 10;
+    printf("%lld\n", *numptr);
+
+    free(numptr);
+
+    return 0;
+}
