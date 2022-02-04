@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+void printarr(int (*arr)[5], int row, int col){      // It is mandatory for some reason to fill in the column number when using an array
+
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j < col; j++){
+            printf("%d ", arr[i][j]);
+        }
+        printf("\n");
+    }
+
+}
+
+int main(){
+
+    printarr((int[2][5]) { { 1, 2, 3, 4, 5 }, { 6, 7, 8, 9, 10 } }, 2, 5);
+
+    return 0;
+}
