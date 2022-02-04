@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char name[20];
+    int age;
+    char address[100];
+} Person;
+
+void printPerson(Person p){
+    printf("Name: %s\nAge: %d\nAddress: %s", p.name, p.age, p.address);
+}
+
+int main(){
+
+    Person p1;
+    
+    strcpy(p1.name, "Joonho Lee");
+    p1.age = 22;
+    strcpy(p1.address, "Home");
+
+    printPerson(p1);
+
+    return 0;
+}
