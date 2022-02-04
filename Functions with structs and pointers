@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char name[20];
+    int age;
+    char address[100];
+} Person;
+
+void makePerson(Person *p){
+    strcpy(p->name, "Joonho Lee");
+    p->age = 22;
+    strcpy(p->address, "Home");
+}
+
+int main(){
+
+    Person p1;
+    
+    strcpy(p1.name, "Name");
+    p1.age = 99;
+    strcpy(p1.address, "House");
+
+    makePerson(&p1);
+
+    printf("Name: %s\nAge: %d\nAddress: %s", p1.name, p1.age, p1.address);
+
+    return 0;
+}
