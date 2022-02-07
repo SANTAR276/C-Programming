@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int add(int a, int b){
+    return a + b;
+}
+
+void exe(int (*fp)(int, int)){
+    printf("%d\n", fp(12, 34));
+}
+
+int main(){
+
+    exe(add);
+    
+    return 0;
+}
