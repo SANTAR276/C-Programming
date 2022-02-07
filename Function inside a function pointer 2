@@ -4,13 +4,15 @@ int add(int a, int b){
     return a + b;
 }
 
-int (*getAdd())(int, int){
+int (*getAdd(int x, int y))(int, int){
+    printf("%d %d\n", x, y);
+
     return add;
 }
 
 int main(){
 
-    printf("%d\n", getAdd()(12, 34));
+    printf("%d\n", getAdd(11, 22)(10, 20));
 
     return 0;
 }
