@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+
+void hello(){
+    printf("Hello");
+}
+
+
+void world(){
+    printf("World");
+}
+
+
+int main(){
+
+    void (*fp)();
+
+    fp = hello;
+    fp();
+
+    printf("\n");
+
+    fp = world;
+    fp();
+
+    return 0;
+}
