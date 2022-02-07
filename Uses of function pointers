@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int add(int a, int b){
+    return a + b;
+}
+
+typedef int (*FP)(int, int);
+
+struct Calc{
+    FP fp;
+};
+
+void exe(FP fp){
+    printf("%d\n", fp(10, 20));
+}
+
+
+int main(){
+
+    FP fp1;
+    fp1 = add;
+    printf("%d\n", fp1(30, 40));
+
+    FP fp[10];
+    fp[0] = add;
+    printf("%d\n", fp[0](50, 60));
+
+    struct Calc c;
+    c.fp = add;
+    printf("%d\n", c.fp(70, 80));
+
+    exe(add);
+
+    return 0;
+}
