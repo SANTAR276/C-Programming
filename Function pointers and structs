@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+typedef struct {
+    int (*fp)(int, int);
+} Calc;
+
+int add(int a, int b){
+    return a + b;
+}
+
+
+int main(){
+
+    Calc c;
+
+    c.fp = add;
+
+    printf("%d\n", c.fp(10, 20));
+
+    return 0;
+}
