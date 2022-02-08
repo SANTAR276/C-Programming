@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+
+int main(){
+
+    FILE *fp = fopen("tests3.txt", "w");
+
+    fputs("Hello, World!", fp);
+
+    fclose(fp);
+
+    return 0;
+}
