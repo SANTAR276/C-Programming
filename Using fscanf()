@@ -6,12 +6,12 @@ int main(){
     char s1[50];
     int num1;
 
-    FILE *fp = fopen("tests3.txt", "r");
+    FILE *fp = fopen("tests3.txt", "r");    // tests3.txt contains "Hello 100"
 
     fscanf(fp, "%s %d", s1, &num1);
 
     printf("%s %d\n", s1, num1);
-    
+
     fclose(fp);
 
     return 0;
