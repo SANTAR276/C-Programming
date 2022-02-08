@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+
+int main(){
+
+    char buffer[25] = { 0, };
+
+    FILE *fp = fopen("tests3.txt", "r");
+
+    fread(buffer, sizeof(buffer), 1, fp);
+
+    printf("%s\n", buffer);
+
+    fclose(fp);
+
+    return 0;
+}
