@@ -8,7 +8,7 @@ int main(){
 
     FILE *fp = fopen("tests3.txt", "w");
 
-    fwrite(s1, strlen(s1), 1, fp);
+    fwrite(s1, strlen(s1), 1, fp);          // if you do 'fwrite(s1, strlen(s1), 1, stdout)' this will print out what is in s1
 
     fclose(fp);
 
