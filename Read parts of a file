@@ -7,16 +7,16 @@ int main(){
 
     FILE *fp = fopen("tests.txt", "r");     // tests.txt contains "Hello World"
 
-    fseek(fp, 2, SEEK_SET);
-    fread(buffer, 3, 1, fp);                // saves "llo" to buffer
+    fseek(fp, 2, SEEK_SET);                 // moves the starting point by 2 bytes or 2 chars from the start of the file
+    fread(buffer, 3, 1, fp);                // saves 3 bytes from the starting point to the buffer which is "llo"
 
     printf("%s\n", buffer);
 
     memset(buffer, 0, 10);
 
-    fseek(fp, 2, SEEK_CUR);
-    fread(buffer, 4, 1, fp);                // saves "orld" to buffer
-
+    fseek(fp, 2, SEEK_CUR);                 // moves the starting point by 2 bytes or 2 chars from the previous point
+    fread(buffer, 4, 1, fp);                // saves 4 bytes from the starting point to the buffer which is "orld"
+    
     printf("%s\n", buffer);
 
     fclose(fp);
