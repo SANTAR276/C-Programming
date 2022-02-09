@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+
+    char buffer[10] = { 0, };
+
+    FILE *fp = fopen("tests.txt", "r");     // tests.txt contains "Hello World"
+
+    fseek(fp, 2, SEEK_SET);
+    fread(buffer, 3, 1, fp);                // saves "llo" to buffer
+
+    printf("%s\n", buffer);
+
+    memset(buffer, 0, 10);
+
+    fseek(fp, 2, SEEK_CUR);
+    fread(buffer, 4, 1, fp);                // saves "orld" to buffer
+
+    printf("%s\n", buffer);
+
+    fclose(fp);
+
+    return 0;
+}
