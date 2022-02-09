@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+
+    int count;
+    char buffer[5] = { 0, };
+
+    FILE *fp1 = fopen("tests.txt", "r");
+    FILE *fp2 = fopen("tests2.txt", "w");
+
+    while(feof(fp1) == 0){
+        count = fread(buffer, sizeof(char), 4, fp1);
+        printf("%s", buffer);
+        fwrite(buffer, sizeof(char), count, fp2);
+        memset(buffer, 0, 5);
+    }
+
+    fclose(fp1);
+    fclose(fp2);
+
+
+    return 0;
+}
