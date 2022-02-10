@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+
+#pragma pack(push, 1)
+typedef struct {
+    char c1;
+    short num1;
+    int num2;
+    char s1[20];
+} Data;
+#pragma pack(pop)
+
+
+int main(){
+
+    Data d1;
+
+    d1.c1 = 'A';
+    d1.num1 = 13579;
+    d1.num2 = 24680;
+    strcpy(d1.s1, "Hello World");
+
+    FILE *fp = fopen("tests.bin", "wb");
+
+    fwrite(&d1, sizeof(d1), 1, fp);
+
+    fclose(fp);
+
+    return 0;
+}
