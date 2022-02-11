@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct NODE{
+    struct NODE *next;
+    int data;
+};
+
+
+void addNode(struct NODE *target, int data){
+    struct NODE *new = malloc(sizeof(struct NODE));
+    new->next = target->next;
+    new->data = data;
+    
+    target->next = new;
+}
+
+
+void removeNode(struct NODE *target){
+    struct NODE *out = target->next;
+    target->next = out->next;
+
+    free(out);
+}
+
+
+int main(){
+
+    struct NODE *head = malloc(sizeof(struct NODE));
+
+    head->next = NULL;
+
+    addNode(head, 10);
+    addNode(head, 20);
+    addNode(head, 30);
+
+    removeNode(head);
+
+    struct NODE *curr = head->next;
+
+    while(curr != NULL){
+        printf("%d\n", curr->data);
+        curr = curr->next;
+    }
+
+    curr = head->next;
+
+    while(curr != NULL){
+        struct NODE *next = curr->next;
+        free(curr);
+        curr = next;
+    }
+
+    free(head);
+
+    return 0;
+}
