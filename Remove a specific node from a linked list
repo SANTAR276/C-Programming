@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct NODE{
+    struct NODE *next;
+    int data;
+};
+
+
+void addNode(struct NODE *target, int data){
+    struct NODE *new = malloc(sizeof(struct NODE));
+    new->next = target->next;
+    new->data = data;
+    
+    target->next = new;
+}
+
+
+void removeNode(struct NODE *target, int data){
+    struct NODE *curr = target->next;
+    struct NODE *nextCurr = curr->next;
+
+    while(curr != NULL){
+        if(nextCurr->data == data){
+            struct NODE *gone = curr->next;
+            curr->next = gone->next;
+            
+            free(gone);
+        }
+        curr = curr->next;
+        nextCurr = nextCurr->next;
+    }
+}
+
+
+int main(){
+
+    int array[10] = { 0, };
+    int removeNum;
+
+    scanf("%d %d %d %d %d %d %d %d %d %d",
+        &array[0], &array[1], &array[2], &array[3], &array[4],
+        &array[5], &array[6], &array[7], &array[8], &array[9]
+    );
+
+    scanf("%d", &removeNum);
+
+    struct NODE *head = malloc(sizeof(struct NODE));
+    head->next = NULL;
+
+    for(int i = sizeof(array) / sizeof(array[0]) - 1; i >= 0; i--){
+        addNode(head, array[i]);
+    }
+
+    removeNode(head, removeNum);
+
+    struct NODE *curr = head->next;
+
+    while(curr != NULL){
+        printf("\n%d", curr->data);
+        curr = curr->next;
+    }
+
+    curr = head->next;
+
+    while(curr != NULL){
+        struct NODE *new = curr->next;
+        free(curr);
+        curr = new;
+    }
+
+    free(head);
+
+    return 0;
+}
