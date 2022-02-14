@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+struct Point2D{
+    int x, y;
+};
+
+#define ARRSIZE(x) (sizeof(x) / sizeof(x[0]))
+
+int main(){
+
+    int numArr1[10];
+    long long numArr2[5];
+    struct Point2D p[3];
+
+    printf("%d\n%d\n%d\n", ARRSIZE(numArr1), ARRSIZE(numArr2), ARRSIZE(p));
+    
+    return 0;
+}
