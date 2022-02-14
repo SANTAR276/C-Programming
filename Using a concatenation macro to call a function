@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+#define EXE(x) hello##x()
+
+void hello1(){
+    printf("Hello 1\n");
+}
+
+void hello2(){
+    printf("Hello 2\n");
+}
+
+int main(){
+
+    EXE(1);
+    
+    EXE(2);
+
+    return 0;
+}
