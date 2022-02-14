@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+#define MUL(a, b) a * b
+
+#define ADD(a, b) a + b
+
+#define MUL2(a, b) ((a) * (b))
+
+#define ADD2(a, b) ((a) + (b))
+
+int main(){
+
+    printf("%d\n", MUL(10, 20));            // the answer comes out to 10 * 20
+    printf("%d\n", MUL(1 + 2, 3 + 4));      // the answer comes out to the value of 1 + 2 * 3 + 4 which is 11, not (1 + 2) * (3 + 4), 21, which was the value we wanted
+
+    printf("%d\n", ADD(1, 2));              // the answer comes out to 1 + 2
+    printf("%d\n", ADD(1, 2) * 3);          // the answer comes out to 1 + 2 * 3 which is 7, not (1 + 2) * 3, 9, which was the value we wanted
+
+    printf("%d\n", MUL2(10, 20));
+    printf("%d\n", MUL2(1 + 2, 3 + 4));     // the answer comes out to ((1 + 2) * (3 + 4)) which is the value we wanted
+
+    printf("%d\n", ADD2(1, 2));
+    printf("%d\n", ADD2(1, 2) * 3);         // the anser comes out to ((1) + (2)) * 3 which is the value we wanted
+
+
+    return 0;
+}
