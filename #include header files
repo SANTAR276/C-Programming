@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+#define FR
+#include "message.h"
+
+/*
+    message.h contains: 
+
+#if defined EN
+#define HELLO_MESSAGE "Hello!"
+#elif defined SP
+#define HELLO_MESSAGE "Hola!"
+#elif defined FR
+#define HELLO_MESSAGE "Bonjour!"
+#endif
+
+*/
+
+int main(){
+    
+    printf("%s\n", HELLO_MESSAGE);
+
+    return 0;
+}
