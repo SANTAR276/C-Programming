@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+#define DEBUG_LEVEL 2
+#define DEBUG
+
+
+struct Person {
+    char name[20];
+    int age;
+    char address[100];
+#if DEBUG_LEVEL >=2 && defined DEBUG
+    char SocialNumber[15];
+#endif
+};
+
+
+int main(){
+    
+    struct Person p1 = {
+        "Joonho Lee",
+        22,
+        "Home",
+#if DEBUG_LEVEL >=2 && defined DEBUG
+        "123456-1234567"
+#endif
+    };
+
+#if DEBUG_LEVEL >=2 && defined DEBUG
+    printf("Name: %s\nAge: %d\nAddress: %s\nSocial Number: %s\n", p1.name, p1.age, p1.address, p1.SocialNumber);
+#else
+    printf("Name: %s\nAge: %d\nAddress: %s\n", p1.name, p1.age, p1.address);
+#endif
+
+    return 0;
+}
