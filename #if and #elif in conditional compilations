@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+#define USB
+
+int main(){
+
+#if defined BLUETOOTH
+    printf("Bluetooth\n");
+#elif defined USB
+    printf("USB\n");
+#else
+    printf("Invalid operation");
+#endif
+
+    return 0;
+}
