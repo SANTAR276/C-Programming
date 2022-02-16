@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void increaseNumber1(){
+    int num1 = 0;               // this keeps resetting the value of num1 to 0 every time the function ends
+
+    printf("%d\n", num1);
+
+    num1++;
+}
+
+void increaseNumber2(){
+    static int num1 = 0;        // this keeps the value from resetting even after the function ends
+
+    printf("%d\n", num1);
+
+    num1++;
+}
+
+int main(){
+
+    increaseNumber1();
+    increaseNumber1();
+    increaseNumber1();
+    increaseNumber1();
+
+    printf("\n");
+
+    increaseNumber2();
+    increaseNumber2();
+    increaseNumber2();
+    increaseNumber2();
+
+    return 0;
+}
