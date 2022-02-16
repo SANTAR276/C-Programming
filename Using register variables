@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main(){
+
+    register int num1 = 10;                         // putting register infront of a variable allows that variable to use the CPU registers to process
+                                                    // this makes process speeds faster, therefore making it ideal to use for loops with large numbers
+    printf("%d\n", num1);
+
+
+    register int *numPtr = malloc(sizeof(int));
+
+    *numPtr = 20;
+
+    printf("%d\n", *numPtr);
+
+    free(numPtr);
+
+    return 0;
+}
