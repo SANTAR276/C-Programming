@@ -72,7 +72,6 @@ char *readFile(char *filename, int *readSize){
 
 void parseJSON(char *doc, int size, JSON *json){
 	int tokenIndex = 0;
-
 	int pos = 0;
 	
 	if(doc[pos] != '{'){
@@ -83,10 +82,11 @@ void parseJSON(char *doc, int size, JSON *json){
 
 	while(pos < size){
 		switch(doc[pos]){
-			case '"':{
+			case '"' : {
 				char *begin = doc + pos + 1;
 
 				char *end = strchr(begin, '"');
+
 				if(end == NULL){
 					break;
 				}
@@ -95,6 +95,7 @@ void parseJSON(char *doc, int size, JSON *json){
 
 				json->tokens[tokenIndex].type = TOKEN_STRING;
 				json->tokens[tokenIndex].string = malloc(stringLength + 1);
+
 				memset(json->tokens[tokenIndex].string, 0, stringLength + 1);
 
 				memcpy(json->tokens[tokenIndex].string, begin, stringLength);
@@ -105,7 +106,6 @@ void parseJSON(char *doc, int size, JSON *json){
 			}
 			break;
 		}
-
 		pos++;
 	}
 
