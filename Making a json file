@@ -1,0 +1,41 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+int main(){
+
+	char *title = "The Phantom of the Opera";
+	int year = 1986;
+	int month = 10;
+	int day = 9;
+	char *genre = "Musical";
+	char *composer = "Andrew Lloyd Webber";
+	char characters[5][50] = {
+		"The Phantom of the Opera",
+		"Christine Daae",
+		"Raoul, Vicomte de Chagny",
+		"Madame Giry",
+		"Meg Giry"
+	};
+
+	FILE *fp = fopen("example.json", "w");
+
+	fprintf(fp, "{\n");
+	fprintf(fp, "\t\"Title\" : \"%s\", \n", title);
+	fprintf(fp, "\t\"Year\" : %d,\n", year);
+	fprintf(fp, "\t\"Month\" : %d,\n", month);
+	fprintf(fp, "\t\"Day\" : %d,\n", day);
+	fprintf(fp, "\t\"Genre\" : \"%s\", \n", genre);
+	fprintf(fp, "\t\"Composer\" : \"%s\", \n", composer);
+	fprintf(fp, "\t\"Characters\" : [\n");
+	fprintf(fp, "\t\t\"%s\",\n", characters[0]);
+	fprintf(fp, "\t\t\"%s\",\n", characters[1]);
+	fprintf(fp, "\t\t\"%s\",\n", characters[2]);
+	fprintf(fp, "\t\t\"%s\",\n", characters[3]);
+	fprintf(fp, "\t\t\"%s\"\n", characters[4]);
+	fprintf(fp, "	]\n");
+	fprintf(fp, "}\n");
+
+	fclose(fp);
+
+	return 0;	
+}
