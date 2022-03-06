@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <time.h>
+
+void clearInputBuffer(){
+	while(getchar() != '\n');
+}
+
+int main(){
+
+	char phoneNumber[20];
+	char name[30];
+
+	fputs("Enter your phone number : ", stdout);
+	scanf("%s", phoneNumber);
+
+	clearInputBuffer();							// using this function allows you to remove the \n created after scanf()
+
+	fputs("Enter your name : ", stdout);
+	fgets(name, sizeof(name), stdin);
+
+	printf("Phone Number : %s\n", phoneNumber);
+	printf("Name : %s\n", name);
+
+	return 0;
+
+}
