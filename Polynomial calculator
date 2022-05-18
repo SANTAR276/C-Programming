@@ -1,0 +1,189 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node{
+    int coef;
+    int exp;
+    struct node *next;
+}node;
+
+struct node *insert(node *head, int co, int ex){
+    node *temp;
+    node *new = malloc(sizeof(node));
+
+    new->coef = co;
+    new->exp = ex;
+    new->next = NULL;
+
+    if(head == NULL || ex > head->exp){
+        new->next = head;
+        head = new;
+    }
+    else{
+        temp = head;
+        while(temp->next != NULL && temp->next->exp >= ex){
+            temp = temp->next;
+        }
+        new->next = temp->next;
+        temp->next = new;
+    }
+
+    return head;
+
+}
+
+struct node *create(node *head){
+    int n, i;
+    int coef;
+    int exp;
+
+    printf("Enter the number of terms: ");
+    scanf("%d", &n);
+
+    for(i = 0; i < n; i++){
+        printf("Enter the coefficient for term %d: ", i + 1);
+        scanf("%d", &coef);
+
+        printf("Enter the exponent for term %d: ", i + 1);
+        scanf("%d", &exp);
+
+        head = insert(head, coef, exp);
+    }
+
+    return head;
+}
+
+void print(node *head){
+    if(head == NULL){
+        printf("It's empty\n");
+    }
+    else{
+        node *temp = head;
+        while(temp != NULL){
+            printf("%dx^%d", temp->coef, temp->exp);
+
+            temp = temp->next;
+            if(temp != NULL){
+                printf(" + ");
+            }
+            else{
+                printf("\n");
+            }
+        }
+    }
+}
+
+void remove_same(node *head){
+    node *ptr1, *ptr2, *dup;
+
+    ptr1 = head;
+
+    while(ptr1 != NULL && ptr1->next != NULL){
+        ptr2 = ptr1;
+        while(ptr2->next != NULL){
+            if(ptr1->exp == ptr2->next->exp){
+                ptr1->coef  = ptr1->coef + ptr2->next->coef;
+                dup = ptr2->next;
+                ptr2->next = ptr2->next->next;
+                free(dup);
+            }
+            else{
+                ptr2 = ptr2->next;
+            }
+        }
+        
+        ptr1 = ptr1->next;
+    }
+
+}
+
+void multiply(node *head1, node *head2){
+    node *ptr1 = head1;
+    node *ptr2 = head2;
+    node *head3 = NULL;
+
+    if(head1 == NULL || head2 == NULL){
+        printf("No polynomials\n");
+        return;
+    }
+
+    while(ptr1 != NULL){
+        while(ptr2 != NULL){
+            head3 = insert(head3, ptr1->coef * ptr2->coef, ptr1->exp + ptr2->exp);
+            ptr2 = ptr2->next;
+        }
+        ptr1 = ptr1->next;
+        ptr2 = head2;
+    }
+    remove_same(head3);
+    print(head3);
+}
+
+void add(node *head1, node *head2){
+    node *ptr1 = head1;
+    node *ptr2 = head2;
+    node *head3 = NULL;
+
+    if(head1 == NULL && head2 == NULL){
+        printf("No polynomials\n");
+        return;
+    }
+    else if(head1 == NULL){
+        print(head2);
+        return;
+    }
+    else if(head2 == NULL){
+        print(head1);
+        return;
+    }
+
+    while(ptr1 != NULL && ptr2 != NULL){
+        if(ptr1->exp == ptr2->exp){
+            head3 = insert(head3, ptr1->coef + ptr2->coef, ptr1->exp);
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+        }
+        else if(ptr1->exp > ptr2->exp){
+            head3 = insert(head3, ptr1->coef, ptr1->exp);
+            ptr1 = ptr1->next;
+        }
+        else if(ptr1->exp < ptr2->exp){
+            head3 = insert(head3, ptr2->coef, ptr2->exp);
+            ptr2 = ptr2->next;
+        }
+    }
+    while(ptr1 != NULL){
+        head3 = insert(head3, ptr1->coef, ptr1->exp);
+        ptr1 = ptr1->next;
+    }
+    while(ptr2 != NULL){
+        head3 = insert(head3, ptr2->coef, ptr2->exp);
+        ptr2 = ptr2->next;
+    }
+
+    print(head3);
+}
+
+
+int main(){
+    node *head1 = NULL;
+    node *head2 = NULL;
+
+    FILE *fp = fopen("input.txt", "r");
+
+    if(fp == NULL){
+        printf("File is empty!");
+    }
+
+    printf("Enter the first polynomial\n");
+    head1 = create(head1);
+    printf("Enter the second polynomial\n");
+    head2 = create(head2);
+
+    printf("\nAddition: \n");
+    add(head1, head2);
+    printf("\nMultiplication: \n");
+    multiply(head1, head2);
+
+    return 0;
+}
