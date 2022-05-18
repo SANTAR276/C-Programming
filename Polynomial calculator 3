@@ -1,0 +1,253 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+typedef struct node{
+    int coef;
+    int exp;
+    struct node *next;
+}node;
+
+struct node *insert(node *head, int co, int ex){
+    node *temp;
+    node *new = malloc(sizeof(node));
+
+    new->coef = co;
+    new->exp = ex;
+    new->next = NULL;
+
+    if(head == NULL || ex > head->exp){
+        new->next = head;
+        head = new;
+    }
+    else{
+        temp = head;
+        while(temp->next != NULL && temp->next->exp >= ex){
+            temp = temp->next;
+        }
+        new->next = temp->next;
+        temp->next = new;
+    }
+
+    return head;
+
+}
+
+struct node *create(node *head){
+    int n;
+    int coef;
+    int exp;
+
+    printf("Enter the number of terms: ");
+    scanf("%d", &n);
+
+    for(int i = 0; i < n; i++){
+        printf("Enter the coefficient for term %d: ", i + 1);
+        scanf("%d", &coef);
+
+        printf("Enter the exponent for term %d: ", i + 1);
+        scanf("%d", &exp);
+
+        head = insert(head, coef, exp);
+    }
+
+    return head;
+}
+
+void remove_zero(node *head){
+    node *ptr1;
+
+    ptr1 = head;
+    
+    while(ptr1 != NULL && ptr1->next != NULL){
+        if(ptr1->next->coef == 0){
+            ptr1->next = ptr1->next->next;
+        }
+        ptr1 = ptr1->next;
+    }
+
+}
+
+void remove_same(node *head){
+    node *ptr1, *ptr2, *dup;
+
+    ptr1 = head;
+
+    while(ptr1 != NULL && ptr1->next != NULL){
+        ptr2 = ptr1;
+        while(ptr2->next != NULL){
+            if(ptr1->exp == ptr2->next->exp){
+                ptr1->coef  = ptr1->coef + ptr2->next->coef;
+                dup = ptr2->next;
+                ptr2->next = ptr2->next->next;
+                free(dup);
+            }
+            else{
+                ptr2 = ptr2->next;
+            }
+        }
+        
+        ptr1 = ptr1->next;
+    }
+
+}
+
+node *multiply(node *head1, node *head2){
+    node *ptr1 = head1;
+    node *ptr2 = head2;
+    node *head3 = NULL;
+
+    if(head1 == NULL || head2 == NULL){
+        printf("Error : enter polynomials to perform action\n");
+        return 0;
+    }
+
+    while(ptr1 != NULL){
+        while(ptr2 != NULL){
+            head3 = insert(head3, ptr1->coef * ptr2->coef, ptr1->exp + ptr2->exp);
+            ptr2 = ptr2->next;
+        }
+        ptr1 = ptr1->next;
+        ptr2 = head2;
+    }
+
+    remove_same(head3);
+    remove_zero(head3);
+
+    return head3;
+}
+
+node *add(node *head1, node *head2){
+    node *ptr1 = head1;
+    node *ptr2 = head2;
+    node *head3 = NULL;
+
+    if(head1 == NULL && head2 == NULL){
+        printf("Error : enter polynomials to perform action\n");
+        return 0;
+    }
+    else if(head1 == NULL){
+        return head2;
+    }
+    else if(head2 == NULL){
+        return head1;
+    }
+
+    while(ptr1 != NULL && ptr2 != NULL){
+        if(ptr1->exp == ptr2->exp){
+            head3 = insert(head3, ptr1->coef + ptr2->coef, ptr1->exp);
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+        }
+        else if(ptr1->exp > ptr2->exp){
+            head3 = insert(head3, ptr1->coef, ptr1->exp);
+            ptr1 = ptr1->next;
+        }
+        else{
+            head3 = insert(head3, ptr2->coef, ptr2->exp);
+            ptr2 = ptr2->next;
+        }
+    }
+    
+    while(ptr1 != NULL){
+        head3 = insert(head3, ptr1->coef, ptr1->exp);
+        ptr1 = ptr1->next;
+    }
+
+    while(ptr2 != NULL){
+        head3 = insert(head3, ptr2->coef, ptr2->exp);
+        ptr2 = ptr2->next;
+    }
+    
+    remove_same(head3);
+    remove_zero(head3);
+    
+    return head3;
+}
+
+int is_empty(const char *line){
+    while(*line != '\0'){
+        if(isspace(*line) == 0){
+            return 0;
+        }
+        line++;
+    }
+    return 1;
+}
+
+int main(){
+    node *head1 = NULL;
+    node *head2 = NULL;
+    node *head3 = NULL;
+
+    FILE *fp1 = fopen("input.txt", "r");
+
+    if(fp1 == NULL){
+        printf("Error: File does not exist!");
+        exit(1);
+    }
+
+    int coef;
+    int exp;
+    
+    char line[20];
+
+    while((fgets(line, sizeof line, fp1) != NULL) && (is_empty(line) == 0)){
+        if(sscanf(line, "%d %d", &coef, &exp) == 2){
+            head1 = insert(head1, coef, exp);
+            fflush(stdout);
+        }
+    }
+
+    while((fgets(line, sizeof line, fp1) != NULL) && (is_empty(line) == 0)){
+        if(sscanf(line, "%d %d", &coef, &exp) == 2){
+            head2 = insert(head2, coef, exp);
+            fflush(stdout);
+        }
+    }
+
+    fclose(fp1);
+
+    FILE *fp2 = fopen("D:\\output.txt", "w");
+
+    head3 = add(head1, head2);
+
+    if(head3 == NULL){
+        printf("There was an error in performing addition!\n");
+    }
+    else{
+        node *temp = head3;
+        
+        fprintf(fp2, "Addition: \n");
+        
+        while(temp != NULL){
+
+            fprintf(fp2, "%d\t%d\n", temp->coef, temp->exp);
+
+            temp = temp->next;
+        }
+    }
+
+    head3 = multiply(head1, head2);
+
+    if(head3 == NULL){
+        printf("There was an error in performing multiplication!\n");
+    }
+    else{
+        node *temp = head3;
+        
+        fprintf(fp2, "Multiplication: \n");
+        
+        while(temp != NULL){
+            
+            fprintf(fp2, "%d\t%d\n", temp->coef, temp->exp);
+
+            temp = temp->next;
+        }
+    }
+
+    fclose(fp2);
+    
+    return 0;
+}
