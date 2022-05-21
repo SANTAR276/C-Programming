@@ -1,0 +1,255 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+// 구조체로 연결 리스트를 구현합니다.
+typedef struct node{
+    int coef;
+    int exp;
+    struct node *next;
+} node;
+
+// 새로 입력할 항을 어디에 추가할 지 정해줍니다.
+node *insert(node *head, int co, int ex){
+    node *temp;
+    node *new = malloc(sizeof(node));
+
+    new->coef = co;
+    new->exp = ex;
+    new->next = NULL;
+
+    if(head == NULL || ex > head->exp){         // 리스트가 비어있거나 새로 추가할 항의 차수가 제일 클 때 새로운 항을 리스트 맨 앞에 추가해줍니다.
+        new->next = head;
+        head = new;
+    }
+    else{
+        temp = head;
+        while(temp->next != NULL && temp->next->exp >= ex){         // 새로 추가할 항이 내림차순에 맞도록 위치를 찾습니다.
+            temp = temp->next;
+        }
+        new->next = temp->next;
+        temp->next = new;
+    }
+
+    return head;            // 새로운 항이 추가된 리스트를 다시 돌려줍니다.
+
+}
+
+// 다항식에서 항의 계수가 0인 항을 없애줍니다.
+void remove_zero(node *head){
+    node *ptr1;
+
+    ptr1 = head;
+    
+    while(ptr1 != NULL && ptr1->next != NULL){
+        if(ptr1->next->coef == 0){              // 계수가 0인 항을 찾으면
+            ptr1->next = ptr1->next->next;      // 바로 그 항을 다음에 오는 항으로 대체합니다.
+        }
+        ptr1 = ptr1->next;                      // 다항식의 끝까지 확인해줍니다.
+    }
+}
+
+// 다항식에서 차수가 같은 항들끼리 더해줍니다.
+void remove_same(node *head){
+    node *ptr1, *ptr2, *dup;
+
+    ptr1 = head;
+
+    while(ptr1 != NULL && ptr1->next != NULL){
+        ptr2 = ptr1;
+
+        while(ptr2->next != NULL){
+            if(ptr1->exp == ptr2->next->exp){                   // 차수가 같은 항들을 찾았을 때
+                ptr1->coef = ptr1->coef + ptr2->next->coef;     // 두 항의 계수를 더해주고
+                dup = ptr2->next;                               // 두 개 중 뒤에 있는 항을 dup으로 선언하고
+                ptr2->next = ptr2->next->next;                  // 차수가 겹치는 항의 다음으로 차수가 작은 항이 오도록 연결시킵니다
+                free(dup);                                      // 그리고 dup를 없애줍니다.
+            }
+            else{
+                ptr2 = ptr2->next;
+            }
+        }
+        
+        ptr1 = ptr1->next;
+
+    }
+
+}
+
+// 다항식의 덧셈 연산을 구현합니다.
+node *add(node *head1, node *head2){
+    node *ptr1 = head1;
+    node *ptr2 = head2;
+    node *head3 = NULL;
+
+    if(head1 == NULL && head2 == NULL){         // 입력된 다항식이 하나도 없을 때 에러를 출력합니다.
+        printf("Error : enter polynomials to perform action\n");
+        return 0;
+    }
+    else if(head1 == NULL){             // head1이 비어있으면 head2를 반환합니다.
+        return head2;
+    }
+    else if(head2 == NULL){             //head2가 비어있으면 head1을 반환합니다.
+        return head1;
+    }
+
+    while(ptr1 != NULL && ptr2 != NULL){        // head1 & head2 둘 다 다항식이 입력돼있으면
+        if(ptr1->exp == ptr2->exp){             // head1의 항의 차수와 head2의 항의 차수가 같을 때
+            head3 = insert(head3, ptr1->coef + ptr2->coef, ptr1->exp);
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+        }
+        else if(ptr1->exp > ptr2->exp){         // head1의 항의 차수가 더 클 때
+            head3 = insert(head3, ptr1->coef, ptr1->exp);
+            ptr1 = ptr1->next;
+        }
+        else{                                   // head2의 항의 차수가 더 클 때
+            head3 = insert(head3, ptr2->coef, ptr2->exp);
+            ptr2 = ptr2->next;
+        }
+    }
+    
+    while(ptr1 != NULL){                        // head2에 있는 항은 모두 head3로 옮겼지만 head1에 항이 남았을 때 
+        head3 = insert(head3, ptr1->coef, ptr1->exp);
+        ptr1 = ptr1->next;
+    }
+
+    while(ptr2 != NULL){                        // head1에 있는 항은 모두 head3로 옮겼지만 head2에 항이 남았을 때
+        head3 = insert(head3, ptr2->coef, ptr2->exp);
+        ptr2 = ptr2->next;
+    }
+    
+    remove_same(head3);                         // 차수가 같은 항들끼리 더해줍니다.
+    remove_zero(head3);                         // 계수가 0인 항들을 없애줍니다.
+    remove_zero(head3);
+    
+    return head3;
+}
+
+// 다항식의 곱셈 연산을 구현합니다.
+node *multiply(node *head1, node *head2){
+    node *ptr1 = head1;
+    node *ptr2 = head2;
+    node *head3 = NULL;
+
+    if(head1 == NULL || head2 == NULL){         // 두 개의 다항식 중 하나라도 없으면 에러를 출력합니다.
+        printf("Error : enter polynomial(s) to perform action\n");
+        return 0;
+    }
+
+    while(ptr1 != NULL){
+        while(ptr2 != NULL){                    // head1의 하나의 항에 대하여 head2 다항식을 곱해줍니다.
+            head3 = insert(head3, ptr1->coef * ptr2->coef, ptr1->exp + ptr2->exp);
+            ptr2 = ptr2->next;
+        }
+        ptr1 = ptr1->next;                      // head1의 다음 항으로 넘어갑니다.
+        ptr2 = head2;                           // ptr2를 다시 head2의 처음 항부터 읽을 수 있도록 초기화해줍니다.
+    }
+
+    remove_same(head3);                         // 차수가 같은 항들끼리 더해줍니다.
+    remove_zero(head3);                         // 계수가 0인 항들을 없애줍니다.
+    remove_zero(head3);
+
+    return head3;
+}
+
+// input.txt에서 빈줄이 있는 것을 확인해주는 것에 도움을 주는 함수입니다.
+int is_empty(const char *line){
+    while(*line != '\0'){
+        if(isspace(*line) == 0){        // 입력된 char 배열이 비어있으면 0을 반환해줍니다.
+            return 0;
+        }
+        line++;
+    }
+    return 1;                           // 입력된 char 배열에 입력된 값이 있으면 1을 반환해줍니다.
+}
+
+// 다항식의 덧셈과 곱셈을 output.txt에 출력해줍니다.
+void print_file(char *file_name, node *head1, node *head2, node *head3){
+
+    FILE *fp2 = fopen(file_name, "w");
+
+    head3 = add(head1, head2);          // head3에 head1과 head2의 더한 값을 입력해줍니다.
+
+    if(head3 == NULL){                  // 만약 head1 = -head2 이면 더한 값으로 0을 반환해줍니다.
+        fprintf(fp2, "0");
+    }
+    else{
+        node *temp = head3;             // temp에 head3를 복사해줍니다.
+        
+        fprintf(fp2, "Addition:\n");
+        
+        while(temp != NULL){
+            fprintf(fp2, "%d\t%d\n", temp->coef, temp->exp);        // 각 항의 계수와 차수를 순서대로 output.txt에 입력해줍니다.
+
+            temp = temp->next;
+        }
+    }
+
+    head3 = multiply(head1, head2);     // head3에 head1과 head2의 곱한 값을 입력해줍니다.
+
+    if(head3 == NULL){                  // 두 다항식의 곱셈에서 0이 나올 수 없기 때문에 head3 = 0 이라면 에러를 출력해줍니다.
+        printf("There was an error in performing multiplication!\n");
+    }
+    else{
+        node *temp = head3;             // temp에 head3를 복사해줍니다.
+        
+        fprintf(fp2, "\nMultiplication:\n");
+        
+        while(temp != NULL){
+            fprintf(fp2, "%d\t%d\n", temp->coef, temp->exp);        // 각 항의 계수와 차수를 순서대로 output.txt에 입력해줍니다.
+
+            temp = temp->next;
+        }
+    }
+
+    fclose(fp2);        // output.txt를 닫아줍니다.
+    
+}
+
+int main(){
+    node *head1 = NULL;
+    node *head2 = NULL;
+    node *head3 = NULL;
+
+    FILE *fp1 = fopen("input.txt", "r");        // input.txt 파일을 불러옵니다.
+
+    if(fp1 == NULL){                            // input.txt가 존재하지 않으면 에러를 출력하고 프로그램을 종료합니다.
+        printf("Error: File does not exist!");
+        exit(1);
+    }
+
+    int coef;
+    int exp;
+    
+    char line[100];
+
+    while((fgets(line, sizeof line, fp1) != NULL) && (is_empty(line) == 0)){    // 빈 줄이 있을 때까지 input.txt를 읽어줍니다.
+        if(sscanf(line, "%d %d", &coef, &exp) == 2){
+            head1 = insert(head1, coef, exp);                                   // 각 줄에 있는 항의 계수와 차수를 리스트로 저장해서 head1에 입력해줍니다.
+            fflush(stdout);
+        }
+        else if(sscanf(line, "%d %d", &coef, &exp) == 1){                       // 어느 줄에 값이 하나만 존재한다면 에러를 출력하고 프로그램을 종료합니다.
+            printf("Missing element!\n");
+            exit(1);
+        }
+    }
+
+    while((fgets(line, sizeof line, fp1) != NULL) && (is_empty(line) == 0)){    // 빈 줄이 있거나 파일의 끝에 갈 때 까지 input.txt를 읽어줍니다.
+        if(sscanf(line, "%d %d", &coef, &exp) == 2){
+            head2 = insert(head2, coef, exp);                                   // 각 줄에 있는 항의 계수와 차수를 리스트로 저장해서 head2에 입력해줍니다.
+            fflush(stdout);
+        }
+        else if(sscanf(line, "%d %d", &coef, &exp) == 1){                       // 어느 줄에 값이 하나만 존재한다면 에러를 출력하고 프로그램을 종료합니다.
+            printf("Missing element!\n");
+            exit(1);
+        }
+    }
+
+    fclose(fp1);            // input.txt를 닫아줍니다.
+
+    print_file("output.txt", head1, head2, head3);          // print_file 함수에 출력 파일의 이름, 그리고 input.txt에서 가져온 다항식을 넘겨줍니다.
+
+    return 0;
+}
