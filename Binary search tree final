@@ -1,0 +1,233 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// 구조체에 해당 노드의 숫자와 자식 노드 포인터를 포함해줍니다.
+typedef struct tree{
+    int data;
+    struct tree *left;
+    struct tree *right;
+} tree;
+
+// 입력 받은 숫자로 새로운 노드를 만들어주는 함수입니다.
+tree *new(int num){
+    tree *temp = (struct tree *)(malloc(sizeof(tree)));
+
+    temp->data = num;
+    temp->left = NULL;
+    temp->right = NULL;
+
+    return temp;
+}
+
+// 입력해준 트리를 복사해서 새로운 트리를 반환해줍니다.
+tree *copy(tree *root){
+    if(root == NULL){
+        return NULL;
+    }
+
+    tree *newnode = new(root->data);            // 입력해준 트리의 값을 새로운 트리의 값으로 입력해줍니다. 
+    
+    newnode->left = copy(root->left);           // 왼쪽 자식에 대하여 copy 함수를 호출해줍니다.
+    newnode->right = copy(root->right);         // 오른쪽 자식에 대하여 copy 함수를 호출해줍니다.
+
+    return newnode;                             // 복사한 트리를 반환해줍니다.
+}
+
+// 트리에 숫자를 입력해줍니다.
+tree *insert(tree *tree, int data){
+    if(tree == NULL){                                   // 현재 위치가 비어있으면
+        return new(data);                               // 입력해준 숫자를 data로 가지는 노드를 만들어서 그 자리에 넣어줍니다.
+    }
+
+    if(data > tree->data){
+        tree->right = insert(tree->right, data);        // 추가할 숫자가 노드의 숫자보다 크면 오른쪽 자식한테 보냅니다.
+    }
+    else if(data < tree->data){
+        tree->left = insert(tree->left, data);          // 추가할 숫자가 노드의 숫자보다 작으면 왼쪽 자식한테 보냅니다.
+    }
+    else if(data == tree->data){                        // 추가할 숫자가 노드의 숫자와 같다면
+        if(tree->left == NULL){                         // 왼쪽 노드가 비어 있을 때
+            tree->left = insert(tree->left, data);      // 왼쪽 노드에 숫자를 입력해 줍니다.
+        }
+        else if(tree->left != NULL){                    // 왼쪽 노드가 비어 있지 않을 때
+            struct tree *temp = copy(tree->left);       // temp에 왼쪽 서브 트리를 복사해서 저장해줍니다.
+            struct tree *newNode = new(data);           // 왼쪽 자식 트리를 대신할 트리를 새로 생성해줍니다.
+
+            newNode->left = temp;                       // 새로운 트리의 왼쪽이 temp랑 같아집니다.
+            tree->left = newNode;                       // temp의 왼쪽 서브트리가 새로운 트리와 같아집니다.
+        }
+    }
+
+    return tree;                                        // 현재 트리를 반환해줍니다.
+}
+
+// 트리에서 입력해준 숫자를 찾아줍니다.
+int search(tree *tree, int num){
+    if(!tree){                      // 더 이상 탐색할 트리가 없다면 0을 반환해줍니다.
+        return 0;
+    }
+    else if(num < tree->data){      // 찾아야할 숫자가 현재 트리의 값보다 작으면 왼쪽 자식 트리를 탐색합니다.
+        search(tree->left, num);
+    }
+    else if(num > tree->data){      // 찾아야할 숫자가 현재 트리의 값보다 크면 오른쪽 자식 트리를 탐색합니다.
+        search(tree->right, num);
+    }
+    else{                           // 찾아야할 숫자와 현재 트리의 값이 일치하면 1을 반환해줍니다.
+        return 1;
+    }
+}
+
+// 입력해준 트리의 가장 왼쪽에 있는 노드를 반환해줍니다.
+tree *min_value(tree *tree){
+    struct tree *current = tree;                // 새로운 트리를 반환해줘야 하므로 새로운 트리 포인터 current를 생성해서 입력 받은 트리를 복사해줍니다.
+
+    while(current && current->left != NULL){
+        current = current->left;                // 왼쪽 자손이 없을 때까지 current을 왼쪽 자식 노드로 옮겨줍니다.
+    }
+
+    return current;                             // NULL이 아닌 가장 왼쪽에 있는 노드를 반환해줍니다.
+}
+
+// 입력해준 트리에서 입력해준 숫자를 삭제해줍니다.
+tree *delete(tree *root, int data){
+    if(root == NULL){                               // 트리가 비어있으면 
+        return root;                                // 아무것도 하지 않고 트리를 반환해줍니다.
+    }
+
+    if(data < root->data){                          // 삭제할 숫자가 현재 노드의 값보다 작으면 왼쪽 트리에 delete 함수를 호출합니다. 
+        root->left = delete(root->left, data);
+    }
+    else if(data > root->data){                     // 삭제할 숫자가 현재 노드의 값보다 크면 오른쪽 트리에 delete 함수를 호출합니다.
+        root->right = delete(root->right, data);
+    }
+    else{                                           // 삭제할 숫자와 현재 노드의 값이 일치할 때.
+        // 삭제할 트리가 단말 노드일 경우 혹은 자식 트리가 하나일 경우 :
+        if(root->left == NULL){                     // 왼쪽 자식이 비어있으면 
+            tree *temp = root->right;               // temp에 오른쪽 자식 트리를 저장해주고
+            free(root);                             // 현재 트리를 삭제하고
+            return temp;                            // temp를 그 자리에 붙여줍니다.
+        }
+        else if(root->right == NULL){               // 오른쪽 자식이 비어있으면
+            tree *temp = root->left;                // temp에 왼쪽 자식 트리를 저장해주고
+            free(root);                             // 현재 트리를 삭제하고
+            return temp;                            // temp를 그 자리에 붙여줍니다.
+        }
+        // 삭제할 트리에서 자식 트리가 둘 다 있을 경우 : 
+        tree *temp = min_value(root->right);            // 오른쪽 자식 트리에서 최솟값을 찾아서 temp에 저장해줍니다.
+
+        root->data = temp->data;                        // temp의 값을 삭제할 트리의 값에 저장해줍니다.
+
+        root->right = delete(root->right, temp->data);  // 오른쪽 자식 트리의 최솟값을 삭제해줍니다.
+    }
+    
+    return root;                                        // 현재 트리를 반환해줍니다.
+}
+
+// 트리의 높이를 구해줍니다.
+int height(tree *node){
+    if(node == NULL){                                   // 트리가 비어있으면 0을 반환해줍니다.
+        return 0;
+    }
+    else{
+        int left_height = height(node->left);           // 왼쪽 서브 트리의 끝까지 도착할 때까지 height 함수를 호출하여 높이를 구합니다.
+        int right_height = height(node->right);         // 오른쪽 서브 트리의 높이도 구합니다.
+
+        if(left_height > right_height){                 // 왼쪽 서브 트리의 높이가 더 크면
+            return left_height + 1;                     // 왼쪽 서브 트리의 높이 + 1을 반환해줍니다.
+        }
+        else{                                           // 오른쪽 서브 트리의 높이가 더 크면
+            return right_height + 1;                    // 오른쪽 서브 트리의 높이 + 1을 반환해줍니다.
+        }
+    }
+}
+
+// 한 레벨에 있는 모든 숫자를 왼쪽에서부터 출력해줍니다.
+void current_height(tree *root, int level, FILE *fp2){
+    if(root == NULL){                                   // 트리가 비어있다면
+        if(level > 1){                                  // 출력할 레벨에 도착하지 않았으면
+            current_height(NULL, level - 1, fp2);       // 왼쪽 자식 트리에 NULL 노드가 있다고 가정하고 current_height 함수를 호출해줍니다.
+            current_height(NULL, level - 1, fp2);       // 오른쪽 자식 트리에 NULL 노드가 있다고 가정하고 current_height 함수를 호출해줍니다.
+        }
+        else{
+            fprintf(fp2, "0, ");                        // 출력할 레벨에 도착해서 비어있는 노드를 0으로 프린트해줍니다.
+        }
+        return;
+    }
+
+    if(level == 1){                                     // 출력할 레벨에 도착하면
+        fprintf(fp2, "%d, ", root->data);               // 그 노드에 있는 숫자를 출력해줍니다.
+    }
+    else if(level > 1){                                 // 출력할 레벨에 도착하지 않았을 때
+        current_height(root->left, level - 1, fp2);     // 왼쪽 자식 트리에 대하여 current_height 함수를 호출해줍니다.
+        current_height(root->right, level - 1, fp2);    // 오른쪽 자식 트리에 대하여 current_height 함수를 호출해줍니다.
+    }
+}
+
+// 입력 받은 트리를 level-order로 output.txt에 출력해줍니다.
+void print_tree(tree *root, FILE *fp2){
+    int h = height(root);                       // 트리의 높이를 h에 저장해줍니다.
+
+    for(int i = 0; i <= h; i++){                // 입력 받은 트리의 높이만큼 current_height의 함수를 호출시켜 트리 전체를 프린트 해줍니다.
+        current_height(root, i, fp2);
+    }
+}
+
+
+int main(){
+
+    tree *root = NULL;                                  // 비어 있는 트리를 생성해줍니다.
+
+    char action;                                        // input.txt에서 i, d, s를 불러와 실행할 연산을 저장해줍니다.
+    int num;                                            // input.txt에서 입력 받은 숫자를 저장하고 있는 변수입니다.
+    int i;                                              // input.txt에서 입력 받은 숫자의 존재 여부를 결정해줄 변수입니다.
+
+    FILE *fp1 = fopen("input.txt", "r");                // input.txt를 불러옵니다.
+    FILE *fp2 = fopen("output.txt", "w");               // output.txt를 불러옵니다.
+
+    while(feof(fp1) == 0){                              // input.txt 파일이 끝날 때까지 실행합니다.
+        fscanf(fp1, "%c%d", &action, &num);             // 실행할 명령과 숫자를 가져옵니다.
+        getc(fp1);                                      // '\n'를 버려줍니다.
+
+        switch(action){
+            case 'i' :                                              // 삽입 연산을 받았을 때
+                fprintf(fp2, "%c%d : ", action, num);
+                root = insert(root, num);
+                print_tree(root, fp2);
+                fprintf(fp2, "\n");
+                break;
+
+            case 'd' :                                              // 삭제 연산을 받았을 때
+                i = search(root, num);                              // 입력 받은 숫자가 트리 내에 존재하면 i = 1, 없으면 i = 0를 저장해줍니다.
+                
+                if(i == 1){                                         // 입력 받은 숫자가 트리 내에 존재하면 삭제 연산을 실행합니다.
+                    fprintf(fp2, "%c%d : ", action, num);
+                    root = delete(root, num);
+                    print_tree(root, fp2);
+                    fprintf(fp2, "\n");
+                }
+                else{
+                    fprintf(fp2, "%c%d : Not exist", action, num);  // 입력 받은 숫자가 트리 내에 존재하지 않으면 output.txt에 "Not exist"를 출력합니다.
+                }
+                break;
+
+            case 's' :                                              // 찾기 연산을 받았을 때
+                fprintf(fp2, "%c%d : ", action, num);
+                i = search(root, num);
+                if(i == 1){
+                    fprintf(fp2, "Exist\n");
+                }
+                else{
+                    fprintf(fp2, "Not exist\n");
+                }
+                break;
+                
+            default : 
+                printf("%c is an invalid operation!\n", action);    // 존재하지 않은 연산에 대한 알파펫이 나오면
+                exit(1);                                            // 프로그램을 종료합니다.
+        }
+    }
+
+    fclose(fp1);                            // input.txt를 닫아줍니다.
+    fclose(fp2);                            // output.txt를 닫아줍니다.
+
+}
